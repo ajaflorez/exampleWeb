@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>01 web</title>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+$(document).on('ready', function() {	
+	var myUrl = $('#divMain form').attr('action');
+	var myType = $('#divMain form').attr('method');
+	var nom, ape, em, men;
+	var dataJson;
+	var dataSerialize;        
+
+	$('#divMain form').on('submit', function(e) {
+		e.preventDefault();
+		nom = document.frmMain.nombre.value;
+		ape = $('#apellido').val();
+		ema = $('input[name=email]').val();
+		men = $('textarea[name=mensaje]').val(); 
+
+		dataNotas = [12, 13, 14, 15, 16, 17];
+		dataGusto = {deporte:'basket', curso: 'Matematica', edad: 20};
+		dataMenu = [
+			{"value": "New", "onclick": "CreateNewDoc()"},
+			{"value": "Open", "onclick": "OpenDoc()"},
+			{"value": "Close", "onclick": "CloseDoc()"}
+		];
+		dataJson = {nombre:nom, apellido:ape, email:ema, mensaje:men, notas:dataNotas, num_car: dataGusto, menu: dataMenu};
+		dataSerialize = $('#divMain form').serialize();
+
+		$.ajax({
+			beforeSend: function() {
+				console.log(dataJson);
+			},
+			url: myUrl,
+			type: myType,   
+			data: dataJson,
+			success: function(response) {
+				$('#status').html('<img src="img/ok.png"/>');				
+				$('#response').text(response.escuela + response.apellido + response.valor);
+				$('input[name=inputResp').val(response.email + response.id + response.valor);
+				console.log(response);
+			},
+			error: function(jqXHR, state, error) {
+				$('#status').html('<img src="img/error.png"/>');
+				console.log(state);
+				console.log(error);
+			},
+			complete: function(jqXHR, state) {
+				console.log(state);
+			},
+			timeout: 10000
+		});
+	});
+});
+
+
+</script>
+
+<style> 
+
+* {
+	margin: 0;
+	padding: 0;
+}
+body, html {
+	font-family: Myriad Pro, Arial;
+	background: #111a29;
+	color: #FFF;
+}
+#divMain {
+	display: block;
+	margin: 0 auto;
+	width: 400px;
+}
+#divMain h1 {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+::selection {
+	background: #E04C22;
+	color: #FFF;
+}
+form {
+	display: block;
+	width: 100%;
+}
+input, textarea {
+	font-family: Myriad Pro, Arial;
+	color: #FFF;
+	border: 0;
+	outline: 0;
+	background: #1f61ad;
+	border-radius: 2px;
+	font-size: 20px;
+	margin: 10px auto;
+	width: 95%;
+	display: block;
+	max-height: 100px;
+}
+textarea {
+	max-width: 95%;
+	height: 100%;
+}
+input[type=submit] {
+	display: inline-block;
+	vertical-align: middle;
+	height: 25px;
+	width: 80%;
+	cursor: pointer;
+}
+button {
+	display: inline-block;
+	vertical-align: middle;
+	height: 25px;
+	width: 80%;
+	cursor: pointer;
+	background: #1f61ad;
+}
+#status {
+	display: inline-block;
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+}
+#status img {
+	width: 20px;
+	height: 20px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="divMain">
+	<h1>Formulario de contacto</h1>
+	<form action="peticion" name="frmMain" method="POST">
+		<input type="text" name="nombre" id="nombre" >
+		<input type="text" name="apellido" id="apellido" >
+		<input type="email" name="email">
+		<textarea name="mensaje"></textarea>
+		<div style="display: block; width: 60%; margin: 0 auto;">
+			<button type="submit" name="btnSend">Enviar</button>
+			<div id="status"></div>                        
+		</div>
+		<input type="text" name="inputResp" id="inputResp">
+		<div id="response"></div>
+	</form>
+</div>
+
+
+
+</body>
+</html>

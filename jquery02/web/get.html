@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>01 web</title>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+$(document).on('ready', function() {	
+	$('#saludarGet').on('click', function(e) {
+		var myUrl = 'Saludo';
+		var dataJson = {nombre: 'Juan', apellido: 'Flores Moroco'}
+		$.get(myUrl, dataJson, function(response) {
+			$('#response').html(response);
+		});
+	});
+	$('#saludarPost').on('click', function(e) {
+		var myUrl = 'Saludo';
+		var nom = $('#nombre').val();
+		var ape = $('input[name=apellido]').val();
+		var dataJson = {nombre: nom, apellido: ape}
+		$.post(myUrl, dataJson, function(response) {
+			$('#response').html(response);
+		});
+	});
+});
+
+
+</script>
+
+<style> 
+
+
+
+</style>
+
+</head>
+<body>
+
+<input type="text" name="nombre" id="nombre">
+<input type="text" name="apellido" id="apellido">
+<button id="saludarGet">Saludar Get</button>
+<button id="saludarPost">Saludar Post</button>
+<div id="response"></div>
+
+
+
+</body>
+</html>

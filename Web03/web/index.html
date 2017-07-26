@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1> Registro </h1>
+        <div>
+            
+            <form action="actualiza" method="POST">
+                <div> 
+                    Last name: <input type="text" name="last_name" value="" size="25" /> 
+                </div>
+                <div> 
+                    Descripción <textarea name="description" rows="3" cols="20">
+                    </textarea>
+                </div>
+                <div>
+                    <input type="radio" name="jobs" value="IT_PROG" /> IT_PROG
+                    <input type="radio" name="jobs" value="IT_SOP" /> IT_SOP
+                    <input type="radio" name="jobs" value="IT_DEVELOPER" /> IT_DEVELOPER
+                </div>
+                <div>
+                    <input type="submit" value="Registrar" />
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
